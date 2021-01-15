@@ -3,27 +3,23 @@
     <nz-form-item>
       <nz-form-label nzFor="username">Username</nz-form-label>
       <nz-form-control>
-        <!--
-          TODO Ajouter l'input pour username avec le data-binding approprié
-          <input class="ant-input" type="text" name="username" id="username" #username="ngModel">
-         -->
-
+          <input class="ant-input" type="text" name="username" id="username" [(ngModel)]="model.username" #username="ngModel" on-focusout="focusOutInputUsername($event)">
       </nz-form-control>
+      <p *ngIf="usernameObligatoire" class="errorMsg">Champs Obligatoire</p>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzFor="password">Mot de passe</nz-form-label>
       <nz-form-control>
-        <!--
-          TODO Ajouter l'input pour password avec le data-binding approprié
-          <input class="ant-input" type="password" name="password" id="password" #password="ngModel">
-         -->
+          <input class="ant-input" type="password" name="password" id="password" [(ngModel)]="model.password" #password="ngModel" on-focusout="focusOutInputPassword($event)">
       </nz-form-control>
+      <p *ngIf="pswObligatoire" class="errorMsg">Champs Obligatoire</p>
     </nz-form-item>
     <nz-form-item>
       <nz-form-control>
         <button class="login-button" type="submit" nz-button nzType="default" [disabled]="f.form.invalid"
           (submit)="submit()">Connexion</button>
       </nz-form-control>
+      <p *ngIf="invalidForm" class="errorMsg">Formulaire pas valide</p>
     </nz-form-item>
   </form>
   <p class="divider">Pas encore enregistré ?</p>

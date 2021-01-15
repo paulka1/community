@@ -19,6 +19,12 @@ export class UserRegistrationComponent implements OnInit {
   form: NgForm;
 
   invalidForm: boolean;
+  pswdNoSimilaire: boolean;
+  pswObligatoire: boolean;
+  confirmPswObligatoire: boolean;
+  usernameObligatoire: boolean;
+  usernameDisponible: boolean;
+
   model = new UserRegistrationFormModel();
 
   constructor(
@@ -32,10 +38,16 @@ export class UserRegistrationComponent implements OnInit {
   async submit() {
 
     // TODO  Vérifier que la confirmation de mot de passe correspond au mot de passe
-    if (this.form.form.invalid || this.model.password !== this.model.confirmPassword) {
+    if (this.form.form.invalid ||
+      this.confirmPswObligatoire ||
+      this.pswdNoSimilaire ||
+      this.pswObligatoire ||
+      this.usernameObligatoire) {
       this.invalidForm = true;
     } else {
       // TODO Enregistrer l'utilisateur via le UserService
+      let response = await this.userService.register(this.model.username,this.model.password);
+      console.log("response", response);
       this.goToLogin();
     }
   }
@@ -43,5 +55,19 @@ export class UserRegistrationComponent implements OnInit {
   goToLogin() {
     this.userService.register(this.model.username,this.model.password);
     this.router.navigate(["/splash/login"]);
+  }
+
+  focusOutInputUsername(e: any){
+    this.usernameObligatoire = !this.model.username;
+  }
+
+  focusOutInputPassword(e: any){
+    this.pswObligatoire = !this.model.password;
+    this.pswdNoSimilaire = this.model.password != this.model.confirmPassword;
+  }
+
+  focusOutInputConfirmPwd(e: any){
+    this.confirmPswObligatoire = !this.model.confirmPassword;
+    this.pswdNoSimilaire = this.model.password != this.model.confirmPassword;
   }
 }

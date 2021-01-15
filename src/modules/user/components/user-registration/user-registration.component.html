@@ -4,14 +4,18 @@
       <nz-form-label nzFor="username">Username</nz-form-label>
       <nz-form-control>
         <input class="ant-input" type="text" name="username" id="username" [(ngModel)]="model.username"
-          #username="ngModel">
+          #username="ngModel" on-focusout="focusOutInputUsername($event)">
+        <p *ngIf="usernameObligatoire" class="errorMsg">Champs Obligatoire</p>
+        <p *ngIf="usernameDisponible" class="errorMsg">User déjà existant</p>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzFor="password">Mot de passe</nz-form-label>
       <nz-form-control>
         <input class="ant-input" type="password" name="password" id="password" [(ngModel)]="model.password"
-          #password="ngModel">
+          #password="ngModel" on-focusout="focusOutInputPassword($event)">
+        <p *ngIf="pswObligatoire" class="errorMsg">Champs Obligatoire</p>
+        <p *ngIf="pswdNoSimilaire" class="errorMsg">Mot de passe pas identique</p>
       </nz-form-control>
     </nz-form-item>
 
@@ -19,12 +23,15 @@
       <nz-form-label nzFor="confirm-password">Confirmation du mot de passe</nz-form-label>
       <nz-form-control>
         <input class="ant-input" type="password" name="confirm-password" id="confirm-password"
-          [(ngModel)]="model.confirmPassword" #confirm="ngModel">
+          [(ngModel)]="model.confirmPassword" on-focusout="focusOutInputConfirmPwd($event)" #confirm="ngModel">
+        <p *ngIf="confirmPswObligatoire" class="errorMsg">Champs Obligatoire</p>
+        <p *ngIf="pswdNoSimilaire" class="errorMsg">Mot de passe pas identique</p>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-control>
         <button class="register-button" nz-button nzType="default" [disabled]="f.form.invalid">S'enregistrer</button>
+        <p *ngIf="invalidForm" class="errorMsg">Formulaire non valide</p>
       </nz-form-control>
     </nz-form-item>
   </form>

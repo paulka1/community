@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { RoomType } from '../../room.model';
 import { RoomService } from '../../services/room.service';
@@ -17,8 +17,12 @@ export class RoomCreateModalComponent implements OnInit {
   @ViewChild("f")
   form: NgForm;
 
+  @Output() createEvent = new EventEmitter
+
   isVisible: boolean = false;
   model = new CreateRoomFormModel();
+  noValid: boolean;
+  e: boolean = true;
 
   constructor(private roomService: RoomService) {
 
@@ -28,9 +32,13 @@ export class RoomCreateModalComponent implements OnInit {
   }
 
   async onOk() {
-    if (this.form.form.valid) {
-      // TODO invoquer la méthode create du RoomService
+    if (this.model.type && this.model.name) {
+     let response = await this.roomService.create(this.model.name, this.model.type);
+      console.log("response", response);
+      this.noValid = false;
       this.close();
+    } else {
+      this.noValid = true;
     }
   }
 
@@ -45,5 +53,6 @@ export class RoomCreateModalComponent implements OnInit {
 
   close() {
     this.isVisible = false;
+    this.createEvent.emit(this.e)
   }
 }

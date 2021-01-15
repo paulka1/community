@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FeedStore } from 'src/modules/feed/feed.store';
-import { Room } from '../../room.model';
+import {Room, RoomType} from '../../room.model';
 import { RoomStore } from '../../room.store';
 import { RoomQueries } from '../../services/room.queries';
 import { RoomService } from '../../services/room.service';
@@ -23,11 +23,18 @@ export class RoomMenuComponent implements OnInit {
   }
 
   async ngOnInit() {
-
     this.rooms = await this.queries.getAll();
+    let response = await this.feedStore.roomId$
   }
 
   goToRoom(room: Room) {
-    // TODO naviguer vers app/[id de la room]
+    let id = room.id;
+    this.router.navigate([`app/${id}`]);
+    localStorage.setItem('Roomid', id);
+
+  }
+
+  createRoomDone(){
+    this.ngOnInit();
   }
 }

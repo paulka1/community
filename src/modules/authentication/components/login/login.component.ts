@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit {
   ngForm: NgForm;
 
   model = new LoginFormModel();
+  pswObligatoire: boolean;
+  usernameObligatoire: boolean;
+  invalidForm: boolean;
 
   constructor(
     private router: Router,
@@ -31,24 +34,39 @@ export class LoginComponent implements OnInit {
 
   goToRegistration() {
     this.router.navigate(["/splash/register"]);
-    // TODO naviguer vers "/splash/register"
   }
 
   submit() {
-    this.login();
+    console.log("this.pswObligatoire", this.pswObligatoire)
+    console.log("this.usernameObligatoire", this.usernameObligatoire)
+    if(this.pswObligatoire || this.usernameObligatoire){
+      this.invalidForm = true;
+    } else {
+      this.invalidForm = false;
+      console.log("yes")
+      this.login();
+    }
   }
 
   async login() {
-    if (this.ngForm.form.invalid) {
-      return;
-    }
 
     try {
       // TODO vérifier le résultat de l'authentification. Rediriger sur "/" en cas de succès ou afficher une erreur en cas d'échec
-      await this.authService.authenticate(this.model.username, this.model.password);
-
+      let response = await this.authService.authenticate(this.model.username, this.model.password);
+      if(response.success){
+        console.log("resp", response);
+        await this.router.navigate(["/"]);
+      }
     } catch (e) {
       this.nzMessageService.error("Une erreur est survenue. Veuillez réessayer plus tard");
     }
+  }
+
+  focusOutInputUsername(e: any){
+    this.usernameObligatoire = !this.model.username;
+  }
+
+  focusOutInputPassword(e: any){
+    this.pswObligatoire = !this.model.password;
   }
 }
