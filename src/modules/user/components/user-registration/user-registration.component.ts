@@ -18,6 +18,7 @@ export class UserRegistrationComponent implements OnInit {
   @ViewChild("f")
   form: NgForm;
 
+  invalidForm: boolean;
   model = new UserRegistrationFormModel();
 
   constructor(
@@ -32,14 +33,15 @@ export class UserRegistrationComponent implements OnInit {
 
     // TODO  Vérifier que la confirmation de mot de passe correspond au mot de passe
     if (this.form.form.invalid || this.model.password !== this.model.confirmPassword) {
-      return;
+      this.invalidForm = true;
+    } else {
+      // TODO Enregistrer l'utilisateur via le UserService
+      this.goToLogin();
     }
-
-    // TODO Enregistrer l'utilisateur via le UserService
-    this.goToLogin();
   }
 
   goToLogin() {
-    // TODO rediriger l'utilisateur sur "/splash/login"
+    this.userService.register(this.model.username,this.model.password);
+    this.router.navigate(["/splash/login"]);
   }
 }
