@@ -16,7 +16,11 @@ export class FeedInputComponent {
   @ViewChild(NzPopoverDirective)
   inputPopover: NzPopoverDirective;
 
-  objMessage: MessageSentEventPayload;
+  objMessage = {
+    date: new Date(),
+  message: 'coucou',
+  file: undefined
+  }
 
   /**
    * Hold the input message
@@ -135,7 +139,6 @@ export class FeedInputComponent {
       this.objMessage.message = this.message;
       console.log("this.objMessage", this.objMessage)
       if(this.file){
-        this.objMessage.file = this.file;
       } else {
         this.objMessage.file = undefined;
       }
@@ -159,7 +162,7 @@ export class FeedInputComponent {
    * Emit the "messageSent" event
    */
   fireMessageSent() {
-    this.messageSent.emit();
+    this.messageSent.emit(this.objMessage);
     console.log("messageSent")
     // TODO émettre l'évènement "messageSent"
   }

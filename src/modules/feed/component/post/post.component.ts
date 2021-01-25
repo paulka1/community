@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { Post } from '../../post.model';
-import { PostService } from '../../services/post.service';
+import {Component, Input, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+import {Post} from '../../post.model';
+import {PostService} from '../../services/post.service';
 
 @Component({
   selector: 'app-post',
@@ -14,11 +14,18 @@ export class PostComponent implements OnInit, AfterViewInit {
   @ViewChild("anchor")
   anchor: ElementRef<HTMLDivElement>;
 
+  urlImage:boolean;
   constructor(
-    private postService: PostService
-  ) { }
+    private postService: PostService,
+  ) {
+  }
 
   ngOnInit(): void {
+     console.log("postSansFind :", this.post);
+    console.log("post :", this.post.message.attachements.find( c => c.type === "image"));
+    if(this.post.message.attachements.find( item => {item.type === "image"})){
+      this.urlImage = true;
+    }
   }
 
   ngAfterViewInit() {
