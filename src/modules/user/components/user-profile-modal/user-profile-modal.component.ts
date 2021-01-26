@@ -71,18 +71,12 @@ export class UserProfileModalComponent implements OnInit {
 
   get photoUrl(): SafeResourceUrl | undefined {
     if (this.model.photoUrl) {
-      // console.log("this.model.photoUrl", this.model.photoUrl)
       return this.sanitizer.bypassSecurityTrustResourceUrl(this.model.photoUrl);
     }
   };
 
   async onOk() {
     if(this.model.photoUrl && this.model.username) {
-      // let newUser = {
-      //   id: this.model.id,
-      //     username: this.model.username,
-      //     photo: this.model.file
-      // };
       if (this.model.hasChanged()) {
           await this.userService.update({
             'id':this.model.id,

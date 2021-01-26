@@ -32,6 +32,7 @@ export class UserService {
 
   async fetchInfo(): Promise<void> {
     const user = await this.queries.getUserInfo();
+    console.log("user", user);
     this.store.mutate(s => {
       return {
         ...s,

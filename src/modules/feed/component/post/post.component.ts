@@ -51,7 +51,6 @@ export class PostComponent implements OnInit, AfterViewInit {
 
     this.user$.subscribe(user=> {
         this.profilPicture = user?.photoUrl
-        console.log('this.user', user)
       }
     )
   }

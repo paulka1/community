@@ -20,7 +20,6 @@ export class PostMapper {
 
     const pictureMatche = pictureRegex.exec(message);
     if (pictureMatche) {
-      console.log("imageMapper",pictureMatche )
       attachements.push({
         type: 'image',
         url: pictureMatche[0]
@@ -40,7 +39,6 @@ export class PostMapper {
 
     const audioMatche = audioRegex.exec(message)
     if (audioMatche) {
-      console.log("audioMatche",audioMatche )
       attachements.push({
           type: 'audio',
           url: message
@@ -50,7 +48,6 @@ export class PostMapper {
 
     const youtubeMatche = youtubeRegex.exec(message)
     if (youtubeMatche) {
-      console.log("youtubeMatche",youtubeMatche )
       attachements.push({
           type: 'youtube',
           videoId: youtubeMatche[0]

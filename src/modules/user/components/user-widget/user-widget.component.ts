@@ -32,10 +32,8 @@ export class UserWidgetComponent implements OnInit {
   ngOnInit(): void {
     this.user$.subscribe(user=> {
       this.profilPicture = user?.photoUrl
-      console.log('this.user', user)
       }
     )
-    // console.log("this.profilPicture", this.profilPicture)
   }
 
   fireToggleNotificaions() {
