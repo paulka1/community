@@ -66,40 +66,50 @@ export class UserProfileModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.model = new UserProfileForm(this.user);
-  }
+    console.log("this.model", this.model)
+  };
 
   get photoUrl(): SafeResourceUrl | undefined {
     if (this.model.photoUrl) {
+      // console.log("this.model.photoUrl", this.model.photoUrl)
       return this.sanitizer.bypassSecurityTrustResourceUrl(this.model.photoUrl);
     }
-  }
+  };
 
   async onOk() {
-    // TODO vérifier si le formulaire est valide
-
-    if (this.model.hasChanged()) {
-      // TODO mettre à jour l'utilisateur via le service
+    if(this.model.photoUrl && this.model.username) {
+      // let newUser = {
+      //   id: this.model.id,
+      //     username: this.model.username,
+      //     photo: this.model.file
+      // };
+      if (this.model.hasChanged()) {
+          await this.userService.update({
+            'id':this.model.id,
+            'username':this.model.username,
+            'photo': this.model.file
+          })
+      }
+      this.close();
     }
-
-    this.close();
-  }
+  };
 
   onFileUpload = (file: File) => {
     this.model.file = file;
     return false;
-  }
+  };
 
   onCancel() {
     this.close();
-  }
+  };
 
   open() {
     this.model = new UserProfileForm(this.user);
     this.form.resetForm(this.model);
     this.isVisible = true;
-  }
+  };
 
   close() {
     this.isVisible = false;
-  }
+  };
 }

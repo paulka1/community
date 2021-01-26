@@ -2,6 +2,9 @@ import {Component, Input, OnInit, AfterViewInit, ViewChild, ElementRef} from '@a
 import {Post} from '../../post.model';
 import {PostService} from '../../services/post.service';
 import {DateTime} from "luxon";
+import {Observable} from "rxjs";
+import {User} from "../../../user/user.model";
+import {UserStore} from "../../../user/user.store";
 
 @Component({
   selector: 'app-post',
@@ -15,6 +18,9 @@ export class PostComponent implements OnInit, AfterViewInit {
   @ViewChild("anchor")
   anchor: ElementRef<HTMLDivElement>;
 
+  user$: Observable<User | undefined>;
+  profilPicture: string | undefined;
+
   urlImage:boolean;
   urlVideo:boolean;
   urlYoutube:boolean;
@@ -22,13 +28,15 @@ export class PostComponent implements OnInit, AfterViewInit {
   url:any;
   postDate:string;
   constructor(
-    private postService: PostService
+    private postService: PostService,
+    private store: UserStore
   ) {
+    this.user$ = store.user$
   }
 
   ngOnInit(): void {
-     console.log("postSansFind :", this.post);
-    console.log("post :", this.post.message.attachements.find( c => c.type === "image"));
+    //  console.log("postSansFind :", this.post);
+    // console.log("post :", this.post.message.attachements.find( c => c.type === "image"));
     if(this.post.message.attachements.find( item => item.type === "image")){
       this.urlImage = true;
     }
@@ -40,6 +48,12 @@ export class PostComponent implements OnInit, AfterViewInit {
     }
     const t = DateTime.fromISO( this.post.createdAt as string ).toLocal();
     this.postDate = t.setLocale('fr').toRelative() as string;
+
+    this.user$.subscribe(user=> {
+        this.profilPicture = user?.photoUrl
+        console.log('this.user', user)
+      }
+    )
   }
 
   ngAfterViewInit() {

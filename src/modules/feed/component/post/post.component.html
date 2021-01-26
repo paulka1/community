@@ -2,8 +2,7 @@
   <div class="post-author-name"></div>
 
   <!-- TIPS: [ngStyle]="{'background-image': url(...) }" -->
-  <div class="post-author-photo"></div>
-<!--  <div class="post-date">{{postDate}}</div>-->
+  <div class="post-author-photo" [ngStyle]="{'background-image': 'url(' + profilPicture + ')'}"></div>
 
   <div class="post-user-like" (click)="like()">
     <i nz-icon nzType="heart" [nzTheme]="this.liked ? 'fill' : 'outline'"></i>

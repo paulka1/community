@@ -34,7 +34,7 @@ export class AuthenticationService {
             return Bad("user_not_authenticated");
         }
 
-        this.commands.logout(this.store.value.userId);
+        await this.commands.logout(this.store.value.userId);
         this.store.set(null);
         return Ok();
     }

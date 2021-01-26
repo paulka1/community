@@ -17,6 +17,7 @@ export class UserWidgetComponent implements OnInit {
   toggleNotifications: EventEmitter<void> = new EventEmitter();
 
   user$: Observable<User | undefined>;
+  profilPicture: string | undefined;
 
   constructor(
     private authService: AuthenticationService,
@@ -25,10 +26,16 @@ export class UserWidgetComponent implements OnInit {
     private userService: UserService,
     private store: UserStore
   ) {
-    this.user$ = store.user$;
+    this.user$ = store.user$
   }
 
   ngOnInit(): void {
+    this.user$.subscribe(user=> {
+      this.profilPicture = user?.photoUrl
+      console.log('this.user', user)
+      }
+    )
+    // console.log("this.profilPicture", this.profilPicture)
   }
 
   fireToggleNotificaions() {
