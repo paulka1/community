@@ -3,25 +3,26 @@
 
   <!-- TIPS: [ngStyle]="{'background-image': url(...) }" -->
   <div class="post-author-photo"></div>
-  <div class="post-date"></div>
+<!--  <div class="post-date">{{postDate}}</div>-->
 
-  <!-- TIPS: [ngClass]="{liked: [expression booléenne]}" -->
-  <div class="post-user-like">
-    <i nz-icon nzType="heart" [nzTheme]="post.liked ? 'fill' : 'outline'"></i>
+  <div class="post-user-like" (click)="like()">
+    <i nz-icon nzType="heart" [nzTheme]="this.liked ? 'fill' : 'outline'"></i>
   </div>
 
-  <p class="post-text">
+  <p class="post-text" *ngIf="!urlVideo && !urlImage && !urlYoutube">
     {{this.post.message.text.content}}
   </p>
 
-<!--  <img *ngIf="urlImage" src="{{this.post.message.text.content}}" alt="image"/>-->
+  <app-post-attachement-youtube *ngIf="urlYoutube" [element]="this.post.message.attachements[0]"></app-post-attachement-youtube>
+  <app-post-attachement-video *ngIf="urlVideo" [element]="this.post.message.attachements[0]"></app-post-attachement-video>
+  <app-post-attachement-image *ngIf="urlImage" [element]="this.post.message.attachements[0]"></app-post-attachement-image>
 
   <p class="post-author-name">
     {{this.post.createdBy.username}}
   </p>
 
   <p class="post-date">
-    {{this.post.createdAt | date}}
+    {{postDate}}
   </p>
   <!-- Itérer sur les "attachements" du message -->
   <div class="post-attachements" *ngFor="let element of post.message.attachements">

@@ -13,6 +13,7 @@ export class PostAttachementImageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("imageElement", this.element);
   }
 
 }

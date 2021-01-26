@@ -18,6 +18,7 @@ export class PostAttachementYoutubeComponent implements OnInit {
   ) { }
 
   get url() {
+    console.log("urlYoutube", this.element.videoId)
     return this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.element.videoId);
   }
 

@@ -146,8 +146,6 @@ export class FeedInputComponent {
       this.clear();
     }
 
-    // TODO émettre  l'évènement "messageSent" via la méthode fireMessageSent
-    // TODO vider la zone de saise avec la méthode clear
   }
 
   /**
