@@ -21,12 +21,12 @@ export class NotifSideBarComponent implements OnInit, OnChanges {
     this.notificationService.getNotifications().then(notify =>
       this.notifications$ = notify
     )
+    console.log("notifications$", this.notifications$);
   }
 
   ngOnChanges(changes: SimpleChanges){
     if(changes && this.notifications$){
 
-    console.log("notifications$", this.notifications$);
     }
 }
   // async getNotifications(){

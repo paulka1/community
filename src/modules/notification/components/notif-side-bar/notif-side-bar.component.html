@@ -1,5 +1,6 @@
-<div *ngFor="let notify of notifications$">
-  <p>{{notify.data}}</p>
+<div class="notif-container" *ngFor="let notify of notifications$" [ngStyle]="{'background-color': notify.unread ? 'green' : (!notify.unread ? 'white' : null) }">
+  <span><img src="/assets/exclamation.png" alt="alert"></span>
+  <p>{{notify.subject}}</p>
+  <p>{{notify.timestamp | date}}</p>
 </div>
-<div>coucou</div>
-<div>{{notifications$}}</div>
+
