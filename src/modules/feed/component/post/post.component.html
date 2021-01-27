@@ -8,9 +8,18 @@
     <i nz-icon nzType="heart" [nzTheme]="this.liked ? 'fill' : 'outline'"></i>
   </div>
 
-  <p class="post-text" *ngIf="!urlVideo && !urlImage && !urlYoutube">
-    {{this.post.message.text.content}}
-  </p>
+  <div class="post-text-link" *ngIf="urlImage">
+    <a href="{{this.post.message.text.content}}">lien vers l'image</a>
+  </div>
+  <div class="post-text-link" *ngIf="urlVideo">
+    <a href="{{this.post.message.text.content}}">lien vers la video</a>
+  </div>
+  <div class="post-text-link" *ngIf="urlYoutube">
+    <a href="{{this.post.message.text.content}}">lien vers la plateforme youtube</a>
+  </div>
+  <div class="post-text" *ngIf="!urlImage && !urlYoutube && !urlVideo">
+    <p>{{this.post.message.text.content}}</p>
+  </div>
 
   <app-post-attachement-youtube *ngIf="urlYoutube" [element]="this.post.message.attachements[0]"></app-post-attachement-youtube>
   <app-post-attachement-video *ngIf="urlVideo" [element]="this.post.message.attachements[0]"></app-post-attachement-video>
@@ -26,9 +35,9 @@
   <!-- Itérer sur les "attachements" du message -->
   <div class="post-attachements" *ngFor="let element of post.message.attachements">
     <!-- Utiliser ngIf pour afficher le bon composant en fonction du type d'élément-->
-    <div *ngIf="element.type === 'text' ">{{element.content}}</div>
-    <div *ngIf="element.type === 'link' ">{{element.title}}</div>
-    <div *ngIf="element.type === 'image' "><img src="{{element.url}}" ></div>
+<!--    <div *ngIf="element.type === 'text' ">{{element.content}}</div>-->
+<!--    <div *ngIf="element.type === 'link' ">{{element.title}}</div>-->
+<!--    <div *ngIf="element.type === 'image' "><img src="{{element.url}}" ></div>-->
   </div>
   <div #anchor></div>
 </div>

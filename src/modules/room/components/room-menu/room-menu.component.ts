@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FeedStore } from 'src/modules/feed/feed.store';
@@ -13,6 +13,8 @@ import { RoomService } from '../../services/room.service';
   styleUrls: ['./room-menu.component.less']
 })
 export class RoomMenuComponent implements OnInit {
+  @Output() displayNotification = new EventEmitter;
+
   roomId$: Observable<string | undefined>;
 
   rooms: Room[];
@@ -30,11 +32,14 @@ export class RoomMenuComponent implements OnInit {
   goToRoom(room: Room) {
     let id = room.id;
     this.router.navigate([`app/${id}`]);
-    localStorage.setItem('Roomid', id);
-
   }
 
   createRoomDone(){
     this.ngOnInit();
+  }
+
+  createNotification(notify: any){
+    console.log("notify createNotification", notify)
+    this.displayNotification.emit(notify);
   }
 }

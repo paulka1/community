@@ -3,6 +3,7 @@ import { NzPopoverComponent, NzPopoverDirective } from 'ng-zorro-antd/popover';
 import { UserService } from 'src/modules/user/services/user.service';
 import { User } from 'src/modules/user/user.model';
 import { MessageSentEventPayload } from '../../input.model';
+import {MessageElement, PostMessage} from "../../../feed/post.model";
 
 @Component({
   selector: 'app-feed-input',
@@ -18,10 +19,11 @@ export class FeedInputComponent {
 
   objMessage = {
     date: new Date(),
-  message: 'coucou',
+  message: '',
   file: undefined
-  }
+  };
 
+  userMatch: any;
   /**
    * Hold the input message
    */
@@ -47,12 +49,16 @@ export class FeedInputComponent {
    * @param user The mentioned user
    */
   chooseMention(user: User) {
+    console.log("chooseMention user", user);
+    console.log("this.currentMention", this.currentMention);
+    console.log("this.message", this.message);
+    console.log("this.currentMention", this.currentMention);
     if (this.currentMention) {
-      this.message = this.message.substr(0, this.currentMention.index! + 1) + user.username + this.message.substr(this.currentMention.index! + this.currentMention[1].length + 1) + " ";
+      // this.message =  this.message.replace(this.currentMention[0],user.username) + " ";
+      this.message =  this.message.replace(this.currentMention[0],user.username) + " ";
     }
     this.hideMentionList();
-  }
-
+  };
 
   /**
    * Display the mention list
@@ -78,6 +84,16 @@ export class FeedInputComponent {
    */
   onMessageChanged(message: string) {
     this.message = message;
+
+    const userMentionRegex = /\B@\w+/g;
+
+    const userCatch = this.message.match(userMentionRegex);
+    if(userCatch){
+
+      this.userMatch = userCatch.toString().substring(1);
+      this.searchMentionedUsers(this.userMatch)
+      this.showMentionList(userCatch);
+    }
   }
 
   /**
@@ -94,7 +110,7 @@ export class FeedInputComponent {
   onFileUpload = (file: File) => {
     this.setFile(file);
     return false;
-  }
+  };
 
   /**
    * InputKeyDown event handler. Used to watch "Enter" key press
@@ -132,12 +148,9 @@ export class FeedInputComponent {
    */
   send() {
     let newDate = new Date();
-    console.log("newDate", newDate)
-    console.log("message", this.message)
     if (this.message || this.file) {
       this.objMessage.date = new Date();
       this.objMessage.message = this.message;
-      console.log("this.objMessage", this.objMessage)
       if(this.file){
       } else {
         this.objMessage.file = undefined;
@@ -154,15 +167,13 @@ export class FeedInputComponent {
    */
   setFile(file: File | null) {
     this.file = file;
-  }
+  };
 
   /**
    * Emit the "messageSent" event
    */
   fireMessageSent() {
     this.messageSent.emit(this.objMessage);
-    console.log("messageSent")
-    // TODO émettre l'évènement "messageSent"
   }
 
   /**

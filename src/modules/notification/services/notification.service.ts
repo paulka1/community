@@ -13,9 +13,7 @@ export class NotificationService {
     private store: NotificationStore,
     private queries: NotificationQueries
   ) {
-
   }
-
 
   markAsViewed() {
     this.store.mutate(s => {
@@ -28,7 +26,6 @@ export class NotificationService {
 
   async getNotifications(): Promise<AnyNotification[]> {
     this.notifications = await this.queries.getNotifications();
-    console.log("OOOOOOO", this.notifications);
     return this.notifications;
   }
 }

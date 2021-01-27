@@ -17,12 +17,13 @@ export class RoomCreateModalComponent implements OnInit {
   @ViewChild("f")
   form: NgForm;
 
-  @Output() createEvent = new EventEmitter
+  @Output() createEvent = new EventEmitter;
+  @Output() createNotification = new EventEmitter;
 
   isVisible: boolean = false;
   model = new CreateRoomFormModel();
   noValid: boolean;
-  e: boolean = true;
+  // e: boolean = true;
 
   constructor(private roomService: RoomService) {
 
@@ -35,6 +36,7 @@ export class RoomCreateModalComponent implements OnInit {
     if (this.model.type && this.model.name) {
      let response = await this.roomService.create(this.model.name, this.model.type);
       console.log("response", response);
+      console.log("this.model", this.model);
       this.noValid = false;
       this.close();
     } else {
@@ -53,6 +55,8 @@ export class RoomCreateModalComponent implements OnInit {
 
   close() {
     this.isVisible = false;
-    this.createEvent.emit(this.e)
+    // console.log("e", this.e);
+    this.createEvent.emit();
+    this.createNotification.emit(this.model)
   }
 }

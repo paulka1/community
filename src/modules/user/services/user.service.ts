@@ -32,7 +32,6 @@ export class UserService {
 
   async fetchInfo(): Promise<void> {
     const user = await this.queries.getUserInfo();
-    console.log("user", user);
     this.store.mutate(s => {
       return {
         ...s,
@@ -42,6 +41,7 @@ export class UserService {
   }
 
   search(token: string): Promise<User[]> {
+    // console.log("@@@@@@@@@@@@@@@@@search@@@@@@@@@@@@@@@ :", token);
     return this.queries.search(token);
   }
 }

@@ -23,6 +23,8 @@ import { RoomModule } from 'src/modules/room/room.module';
 import { InputModule } from 'src/modules/input/input.module';
 import { RoomPageComponent } from './pages/room-page/room-page.component';
 import { NotificationModule } from 'src/modules/notification/notification.module';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
+
 registerLocaleData(fr);
 
 @NgModule({
@@ -48,7 +50,8 @@ registerLocaleData(fr);
     HttpClientModule,
     BrowserAnimationsModule,
     NzFormModule,
-    NzButtonModule
+    NzButtonModule,
+    NzNotificationModule
   ],
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],
   bootstrap: [AppComponent]

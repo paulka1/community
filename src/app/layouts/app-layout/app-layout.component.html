@@ -7,9 +7,8 @@
       <app-user-widget (toggleNotifications)="onToggleNotifications()"></app-user-widget>
     </div>
     <div class="panel-body">
-      <app-room-menu></app-room-menu>
+      <app-room-menu (displayNotification)="displayNotification($event)"></app-room-menu>
     </div>
-
   </div>
   <div class="app-layout-panel-main">
     <router-outlet></router-outlet>
