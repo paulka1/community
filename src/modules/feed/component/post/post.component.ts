@@ -61,26 +61,7 @@ export class PostComponent implements OnInit, AfterViewInit, OnChanges {
       }
     );
     this.message = this.post.message.text.content;
-
-    if(this.chosenUser){
-
-    // this.message = this.post.message.text.content;
-      console.log("this.post.message.text.content :", this.post.message.text.content)
-     //console.log("chosenUser FEEEEEED : ", this.chosenUser[0].substring(1));
-     console.log("chosenUser FEEEEEED : ", this.chosenUser);
-    // this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.element.videoId);
-    //   this.sanitizerMessage = this.message.replace(this.chosenUser.username,'<span style="color:green">this.chosenUser.username</span>') + " ";
-            // this.sanitizerMessage =  this.sanitizer.bypassSecurityTrustHtml(this.message.replace(this.chosenUser[0].substring(1),'<span style="color:green">{{this.message}}</span>') + " ");
-    //this.message = this.message.replace(this.chosenUser[0].substring(1),'<span style="color:green">{{this.message}}</span>') + " "
-    //           this.message = this.sanitizerMessage;
-    // console.log("sanitizerMessage :",sanitizerMessage)
-    //   this.message = this.sanitizerMessage()
-    }
   }
-
-  // sanitizerMessage() {
-  //   return this.sanitizer.bypassSecurityTrustResourceUrl(this.message.replace(this.chosenUser[0].substring(1),'<span style="color:green">{{this.message}}</span>') + " ");
-  // }
 
   ngAfterViewInit() {
     this.anchor.nativeElement.scrollIntoView();
@@ -96,9 +77,7 @@ export class PostComponent implements OnInit, AfterViewInit, OnChanges {
       this.sanitizerMessage = this.message.replace(this.chosenUser,'<span style="color:green">this.chosenUser.username</span>') + " ";
 
       this.message = this.sanitizerMessage;
-      // this.ngOnInit();
-     //this.message = this.message.replace(this.chosenUser,'<span style="color:green">{{this.chosenUser}}</span>') + " "
-    // this.message = ;
+
     }
   }
 }

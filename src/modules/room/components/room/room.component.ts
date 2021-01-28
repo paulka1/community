@@ -13,8 +13,6 @@ export class RoomComponent implements OnInit {
   constructor(private postService: PostService, private mapper: PostMapper, private store: FeedStore) {
 
   }
-  // @Output()
-  // chosenUserEmit: EventEmitter<any> = new EventEmitter();
 
   chosenUserEmit: string;
   ngOnInit(): void {
@@ -26,7 +24,6 @@ export class RoomComponent implements OnInit {
       return;
     }
     const post = await this.postService.create(this.store.value.roomId, payload.message, payload.file);
-    console.log("post", post)
     this.store.mutate(s => {
       return {
         ...s,
@@ -37,6 +34,5 @@ export class RoomComponent implements OnInit {
 
   chosenUser(event:any){
     this.chosenUserEmit = event;
-    console.log("this.chosenUserEmit :", this.chosenUserEmit);
   }
 }
