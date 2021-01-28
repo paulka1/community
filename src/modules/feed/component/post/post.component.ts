@@ -42,8 +42,7 @@ export class PostComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnInit(): void {
-    //  console.log("postSansFind :", this.post);
-    // console.log("post :", this.post.message.attachements.find( c => c.type === "image"));
+    /** Check le type de attachement pour affichage**/
     if(this.post.message.attachements.find( item => item.type === "image")){
       this.urlImage = true;
     }
@@ -53,6 +52,7 @@ export class PostComponent implements OnInit, AfterViewInit, OnChanges {
     if(this.post.message.attachements.find( item => item.type === "youtube")){
       this.urlYoutube = true;
     }
+    /** Formatage date**/
     const t = DateTime.fromISO( this.post.createdAt as string ).toLocal();
     this.postDate = t.setLocale('fr').toRelative() as string;
 
@@ -67,6 +67,7 @@ export class PostComponent implements OnInit, AfterViewInit, OnChanges {
     this.anchor.nativeElement.scrollIntoView();
   }
 
+  /**Like des posts**/
   async like() {
     this.liked = !this.liked;
      this.postService.like(this.post);
@@ -74,8 +75,8 @@ export class PostComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges){
     if(changes && this.sanitizerMessage){
+      /** Color the mentionUsername **/
       this.sanitizerMessage = this.message.replace(this.chosenUser,'<span style="color:green">this.chosenUser.username</span>') + " ";
-
       this.message = this.sanitizerMessage;
 
     }

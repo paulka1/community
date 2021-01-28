@@ -37,13 +37,11 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    console.log("this.pswObligatoire", this.pswObligatoire)
-    console.log("this.usernameObligatoire", this.usernameObligatoire)
+    /** Check si mot de passe et username sont renseignés avant login**/
     if(this.pswObligatoire || this.usernameObligatoire){
       this.invalidForm = true;
     } else {
       this.invalidForm = false;
-      console.log("yes")
       this.login();
     }
   }
@@ -51,10 +49,8 @@ export class LoginComponent implements OnInit {
   async login() {
 
     try {
-      // TODO vérifier le résultat de l'authentification. Rediriger sur "/" en cas de succès ou afficher une erreur en cas d'échec
       let response = await this.authService.authenticate(this.model.username, this.model.password);
       if(response.success){
-        console.log("resp", response);
         await this.router.navigate(["/"]);
       }
     } catch (e) {
@@ -62,6 +58,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /** test de validité des inputs du formulaire. Ne dois pas être null**/
   focusOutInputUsername(e: any){
     this.usernameObligatoire = !this.model.username;
   }

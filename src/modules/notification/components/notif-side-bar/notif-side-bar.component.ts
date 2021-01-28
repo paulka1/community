@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AnyNotification} from "../../notification.model";
 import {NotificationService} from "../../services/notification.service";
 import {ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
@@ -8,7 +8,7 @@ import {ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
   templateUrl: './notif-side-bar.component.html',
   styleUrls: ['./notif-side-bar.component.less']
 })
-export class NotifSideBarComponent implements OnInit, OnChanges {
+export class NotifSideBarComponent implements OnInit {
 
   notifications$: AnyNotification[];
 
@@ -18,29 +18,10 @@ export class NotifSideBarComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    /** Get the notifications **/
     this.notificationService.getNotifications().then(notify =>
       this.notifications$ = notify
     );
-     console.log("notifications$", this.notifications$);
   };
 
-  ngOnChanges(changes: SimpleChanges){
-    if(changes && this.notifications$){
-      console.log("****** New Notifications *********")
-    }
-  }
-  // async getNotifications(){
-  //   await this.notificationService.getNotifications()
-  // }
-
-  // async canActivate(
-  //   route: ActivatedRouteSnapshot,
-  //   state: RouterStateSnapshot): Promise<boolean> {
-  //   if (this.authStore.isAuthenticated) {
-  //     await this.userService.fetchInfo()
-  //     return true;
-  //   }
-  //   this.router.navigate(["/splash/login"]);
-  //   return false;
-  // }
 }

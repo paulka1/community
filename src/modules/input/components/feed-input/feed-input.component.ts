@@ -83,11 +83,10 @@ export class FeedInputComponent {
   onMessageChanged(message: string) {
     this.message = message;
 
+    /** Regex de @mentionUser **/
     const userMentionRegex = /\B@\w+/g;
-
     const userCatch = this.message.match(userMentionRegex);
     if(userCatch){
-
       this.userMatch = userCatch.toString().substring(1);
       this.searchMentionedUsers(this.userMatch)
       this.showMentionList(userCatch);

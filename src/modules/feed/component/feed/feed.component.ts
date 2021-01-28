@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild, AfterViewChecked, OnChanges} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild, AfterViewChecked} from '@angular/core';
 import { Observable } from 'rxjs';
 import { FeedStore } from '../../feed.store';
 import { Post } from '../../post.model';
@@ -9,7 +9,7 @@ import { PostService } from '../../services/post.service';
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.less']
 })
-export class FeedComponent implements OnInit, OnChanges {
+export class FeedComponent implements OnInit {
   @ViewChild('feed') private bottomRef: ElementRef;
 
   roomId$: Observable<string | undefined>;
@@ -25,12 +25,9 @@ export class FeedComponent implements OnInit, OnChanges {
   }
 
   async ngOnInit() {
-    console.log("this.posts$", this.posts$);
-    console.log("this.chosenUser", this.chosenUser);
     this.roomId$.subscribe({
       next: async (roomId) => {
         if (roomId) {
-          console.log("roomID",roomId);
           await this.postService.fetch(roomId, {
             page: 0,
             perPage: 50
@@ -40,8 +37,4 @@ export class FeedComponent implements OnInit, OnChanges {
     })
   }
 
-  ngOnChanges(){
-    console.log("this.posts$", this.posts$)
-    console.log("this.chosenUser", this.chosenUser);
-  }
 }

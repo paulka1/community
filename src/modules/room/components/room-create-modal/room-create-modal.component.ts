@@ -23,7 +23,6 @@ export class RoomCreateModalComponent implements OnInit {
   isVisible: boolean = false;
   model = new CreateRoomFormModel();
   noValid: boolean;
-  // e: boolean = true;
 
   constructor(private roomService: RoomService) {
 
@@ -34,11 +33,12 @@ export class RoomCreateModalComponent implements OnInit {
 
   async onOk() {
     if (this.model.type && this.model.name) {
-     let response = await this.roomService.create(this.model.name, this.model.type);
-      console.log("response", response);
-      console.log("this.model", this.model);
+      /** Création d'une nouvelle room avec nom et type **/
+      let response = await this.roomService.create(this.model.name, this.model.type);
       this.noValid = false;
       this.close();
+      /** Création d'une notification pour la création d'une nouvelle room **/
+      this.createNotification.emit(this.model);
     } else {
       this.noValid = true;
     }
@@ -55,8 +55,6 @@ export class RoomCreateModalComponent implements OnInit {
 
   close() {
     this.isVisible = false;
-    // console.log("e", this.e);
     this.createEvent.emit();
-    this.createNotification.emit(this.model)
   }
 }
