@@ -16,17 +16,21 @@ export class FeedComponent implements OnInit, OnChanges {
 
   posts$: Observable<Post[]>;
 
+  @Input()
+  chosenUser :string;
+
   constructor(private postService: PostService, private store: FeedStore) {
     this.posts$ = this.store.get(s => s.posts);
     this.roomId$ = this.store.roomId$;
   }
 
   async ngOnInit() {
-    console.log("this.posts$", this.posts$)
+    console.log("this.posts$", this.posts$);
+    console.log("this.chosenUser", this.chosenUser);
     this.roomId$.subscribe({
       next: async (roomId) => {
         if (roomId) {
-          console.log("roomID",roomId)
+          console.log("roomID",roomId);
           await this.postService.fetch(roomId, {
             page: 0,
             perPage: 50
@@ -38,6 +42,6 @@ export class FeedComponent implements OnInit, OnChanges {
 
   ngOnChanges(){
     console.log("this.posts$", this.posts$)
-
+    console.log("this.chosenUser", this.chosenUser);
   }
 }

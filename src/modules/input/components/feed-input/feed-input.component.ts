@@ -13,6 +13,8 @@ import {MessageElement, PostMessage} from "../../../feed/post.model";
 export class FeedInputComponent {
   @Output()
   messageSent: EventEmitter<MessageSentEventPayload> = new EventEmitter();
+  @Output()
+  chosenUser: EventEmitter<any> = new EventEmitter();
 
   @ViewChild(NzPopoverDirective)
   inputPopover: NzPopoverDirective;
@@ -49,13 +51,16 @@ export class FeedInputComponent {
    * @param user The mentioned user
    */
   chooseMention(user: User) {
-    console.log("chooseMention user", user);
     console.log("this.currentMention", this.currentMention);
     console.log("this.message", this.message);
     console.log("this.currentMention", this.currentMention);
     if (this.currentMention) {
-      // this.message =  this.message.replace(this.currentMention[0],user.username) + " ";
-      this.message =  this.message.replace(this.currentMention[0],user.username) + " ";
+       this.message =  this.message.replace(this.currentMention[0],user.username) + " ";
+      // this.message =  this.message.replace(this.currentMention[0],'<span style="color:green">{{user.username}}</span>') + " ";
+      // this.message = this.message.substr(0, this.currentMention.index! + 1) + user.username + this.message.substr(this.currentMention.index! + this.currentMention[0].length + 1) + " ";
+
+      console.log("chooseMention user", user.username);
+      this.chosenUser.emit(user);
     }
     this.hideMentionList();
   };

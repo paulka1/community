@@ -1,8 +1,8 @@
 <div class="room">
   <div class="room-body">
-    <app-feed></app-feed>
+    <app-feed [chosenUser]="this.chosenUserEmit"></app-feed>
   </div>
   <div class="room-footer">
-    <app-feed-input (messageSent)="onMessage($event)"></app-feed-input>
+    <app-feed-input (messageSent)="onMessage($event)" (chosenUser)="chosenUser($event)"></app-feed-input>
   </div>
 </div>

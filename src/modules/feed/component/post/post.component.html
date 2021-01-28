@@ -18,7 +18,7 @@
     <a href="{{this.post.message.text.content}}">lien vers la plateforme youtube</a>
   </div>
   <div class="post-text" *ngIf="!urlImage && !urlYoutube && !urlVideo">
-    <p>{{this.post.message.text.content}}</p>
+    <p [innerHTML]="message"></p>
   </div>
 
   <app-post-attachement-youtube *ngIf="urlYoutube" [element]="this.post.message.attachements[0]"></app-post-attachement-youtube>

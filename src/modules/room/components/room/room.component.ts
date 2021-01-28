@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { FeedStore } from 'src/modules/feed/feed.store';
 import { PostMapper } from 'src/modules/feed/services/post.mapper';
 import { PostService } from 'src/modules/feed/services/post.service';
@@ -13,7 +13,10 @@ export class RoomComponent implements OnInit {
   constructor(private postService: PostService, private mapper: PostMapper, private store: FeedStore) {
 
   }
+  // @Output()
+  // chosenUserEmit: EventEmitter<any> = new EventEmitter();
 
+  chosenUserEmit: string;
   ngOnInit(): void {
   }
 
@@ -30,5 +33,10 @@ export class RoomComponent implements OnInit {
         posts: [...s.posts, this.mapper.map(post)]
       }
     })
+  }
+
+  chosenUser(event:any){
+    this.chosenUserEmit = event;
+    console.log("this.chosenUserEmit :", this.chosenUserEmit);
   }
 }
